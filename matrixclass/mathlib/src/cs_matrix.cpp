@@ -7,5 +7,5 @@
 
 #include "cs_matrix.hpp"
 
-extern template class mklmatr::matrix<float>;
-extern template class mklmatr::matrix<double>;
+extern template class qgen::matrix<float>;
+extern template class qgen::matrix<double>;

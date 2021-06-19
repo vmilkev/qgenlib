@@ -13,7 +13,7 @@ TEST_CASE("Checking class constructors, type = double"){
     
     SECTION("Default constructor"){
         
-        mklmatr::matrix <mytype> M;
+        qgen::matrix <mytype> M;
 
         CHECK(M.size() == 0);
         CHECK(M.failbit == false);
@@ -35,7 +35,7 @@ TEST_CASE("Checking class constructors, type = double"){
 
     SECTION("Constructor: M(val1, val2)"){
         
-        mklmatr::matrix <mytype> M(3,5);
+        qgen::matrix <mytype> M(3,5);
 
         REQUIRE_FALSE(M.failbit);
         
@@ -58,7 +58,7 @@ TEST_CASE("Checking class constructors, type = double"){
 
     SECTION("Constructor: M(val1)"){
         
-        mklmatr::matrix <mytype> M(6);
+        qgen::matrix <mytype> M(6);
 
         REQUIRE_FALSE(M.failbit);
         
@@ -88,7 +88,7 @@ TEST_CASE("Checking class constructors, type = double"){
 
     SECTION("Constructor: M(char_var)"){
         
-        mklmatr::matrix <mytype> M("s");
+        qgen::matrix <mytype> M("s");
 
         REQUIRE_FALSE(M.failbit);
 
@@ -111,9 +111,9 @@ TEST_CASE("Checking class constructors, type = double"){
 
     SECTION("Constructors & overloaded assignment operator"){
         
-        mklmatr::matrix <mytype> M1;
-        mklmatr::matrix <mytype> M2(5,3);
-        mklmatr::matrix <mytype> M3(4,5);
+        qgen::matrix <mytype> M1;
+        qgen::matrix <mytype> M2(5,3);
+        qgen::matrix <mytype> M3(4,5);
 
         CHECK(M1.size() == 0);
         CHECK(M2.size() == 15);
@@ -141,9 +141,9 @@ TEST_CASE("Checking class constructors, type = double"){
 
     SECTION("Constructors & overloaded assignment operator: matrices with values"){
         
-        mklmatr::matrix <mytype> M1;
-        mklmatr::matrix <mytype> M2(5,3);
-        mklmatr::matrix <mytype> M3(4,5);
+        qgen::matrix <mytype> M1;
+        qgen::matrix <mytype> M2(5,3);
+        qgen::matrix <mytype> M3(4,5);
 
         CHECK(M1.size() == 0);
         CHECK(M2.size() == 15);
@@ -196,7 +196,7 @@ TEST_CASE("Checking class constructors, type = double"){
 
     SECTION("Self-assignment"){
 
-        mklmatr::matrix <mytype> M2(5,3);
+        qgen::matrix <mytype> M2(5,3);
         REQUIRE_FALSE(M2.failbit);
         M2 = M2;
         REQUIRE_FALSE(M2.failbit);
@@ -208,7 +208,7 @@ TEST_CASE("Check access operators, type = double"){
     
     SECTION("In case of the default constructor"){
         
-        mklmatr::matrix <mytype> M;
+        qgen::matrix <mytype> M;
 
         SECTION("Checking at()"){
             
@@ -244,7 +244,7 @@ TEST_CASE("Check access operators, type = double"){
 
     SECTION("In case of the constructor: M(val1, val2)"){
         
-        mklmatr::matrix <mytype> M(11,11);
+        qgen::matrix <mytype> M(11,11);
 
         SECTION("Checking at()"){
             
@@ -282,7 +282,7 @@ TEST_CASE("Check access operators, type = double"){
 
     SECTION("In case of the constructor: M(val1)"){
         
-        mklmatr::matrix <mytype> M(11);
+        qgen::matrix <mytype> M(11);
 
         SECTION("Checking at()"){
             
@@ -337,7 +337,7 @@ TEST_CASE("Testing scale() method, type = double"){
     
     SECTION("Scaling to 0.5 a square matrix"){
 
-        mklmatr::matrix <mytype> M(3,3);
+        qgen::matrix <mytype> M(3,3);
         for(auto i = 0; i < M.size(); i++){
             M[i] = i;
         }
@@ -355,7 +355,7 @@ TEST_CASE("Testing scale() method, type = double"){
 
     SECTION("Scaling to -2.5 a square matrix"){
 
-        mklmatr::matrix <mytype> M(3,3);
+        qgen::matrix <mytype> M(3,3);
         for(auto i = 0; i < M.size(); i++){
             M[i] = i;
         }
@@ -373,7 +373,7 @@ TEST_CASE("Testing scale() method, type = double"){
 
     SECTION("Scaling to 0.5 a rectangular matrix"){
 
-        mklmatr::matrix <mytype> M(3,5);
+        qgen::matrix <mytype> M(3,5);
         for(auto i = 0; i < M.size(); i++){
             M[i] = i;
         }
@@ -391,7 +391,7 @@ TEST_CASE("Testing scale() method, type = double"){
 
     SECTION("Scaling to 1.5 a rectangular matrix"){
 
-        mklmatr::matrix <mytype> M(5,3);
+        qgen::matrix <mytype> M(5,3);
         for(auto i = 0; i < M.size(); i++){
             M[i] = i;
         }
@@ -409,7 +409,7 @@ TEST_CASE("Testing scale() method, type = double"){
 
     SECTION("Scaling to -2.5 a rectangular matrix"){
 
-        mklmatr::matrix <mytype> M(13,5);
+        qgen::matrix <mytype> M(13,5);
         for(auto i = 0; i < M.size(); i++){
             M[i] = i;
         }
@@ -431,8 +431,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
     
     SECTION("Checking an initialised square matrix"){
         
-        mklmatr::matrix <mytype> M1(3,3);
-        mklmatr::matrix <mytype> M2(3,3);
+        qgen::matrix <mytype> M1(3,3);
+        qgen::matrix <mytype> M2(3,3);
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -462,8 +462,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
     SECTION("Checking an uninitialised square matrix"){
         
-        mklmatr::matrix <mytype> M1(3,3);
-        mklmatr::matrix <mytype> M2;
+        qgen::matrix <mytype> M1(3,3);
+        qgen::matrix <mytype> M2;
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -485,8 +485,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
     SECTION("Checking an initialised rectangular matrix (3,5)"){
         
-        mklmatr::matrix <mytype> M1(3,5);
-        mklmatr::matrix <mytype> M2(3,5);
+        qgen::matrix <mytype> M1(3,5);
+        qgen::matrix <mytype> M2(3,5);
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -516,8 +516,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
     SECTION("Checking an uninitialised rectangular matrix (3,5)"){
         
-        mklmatr::matrix <mytype> M1(3,5);
-        mklmatr::matrix <mytype> M2;
+        qgen::matrix <mytype> M1(3,5);
+        qgen::matrix <mytype> M2;
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -540,8 +540,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
     SECTION("Checking a rectangular matrix (5,3)"){
         
-        mklmatr::matrix <mytype> M1(5,3);
-        mklmatr::matrix <mytype> M2(5,3);
+        qgen::matrix <mytype> M1(5,3);
+        qgen::matrix <mytype> M2(5,3);
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -571,8 +571,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
     SECTION("Checking an initialised symmetrical (compact) matrix"){
         
-        mklmatr::matrix <mytype> M1(3);
-        mklmatr::matrix <mytype> M2(3);
+        qgen::matrix <mytype> M1(3);
+        qgen::matrix <mytype> M2(3);
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -602,8 +602,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
     SECTION("Checking an uninitialised symmetrical (compact) matrix"){
         
-        mklmatr::matrix <mytype> M1(3);
-        mklmatr::matrix <mytype> M2;
+        qgen::matrix <mytype> M1(3);
+        qgen::matrix <mytype> M2;
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -625,8 +625,8 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
     SECTION("Checking non equivalent matrices"){
         
-        mklmatr::matrix <mytype> M1(3,3);
-        mklmatr::matrix <mytype> M2(3);
+        qgen::matrix <mytype> M1(3,3);
+        qgen::matrix <mytype> M2(3);
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -653,7 +653,7 @@ TEST_CASE("Testing overloaded operator = , type = double"){
 
 TEST_CASE("Testing symtorec() method, type = double"){
 
-    mklmatr::matrix <mytype> M(3);
+    qgen::matrix <mytype> M(3);
     mytype m[] = {0, 1, 3, 1, 2, 4, 3, 4, 5};
     mytype m2[] = {-0, -1, -3, -1, -2, -4, -3, -4, -5};
 
@@ -697,7 +697,7 @@ TEST_CASE("Testing symtorec() method, type = double"){
 
 TEST_CASE("Check rectosym() method, type = double"){
     
-    mklmatr::matrix <mytype> M(3,3);
+    qgen::matrix <mytype> M(3,3);
     CHECK(M.size() == 9);
     REQUIRE_FALSE(M.failbit);
 
@@ -746,7 +746,7 @@ TEST_CASE("Check transpose() method, type = double"){
     SECTION("Square matrix"){
         
         size_t dim = 3;
-        mklmatr::matrix <mytype> M(dim,dim);
+        qgen::matrix <mytype> M(dim,dim);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -774,7 +774,7 @@ TEST_CASE("Check transpose() method, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 5;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -797,7 +797,7 @@ TEST_CASE("Check transpose() method, type = double"){
         
         size_t dim1 = 5;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -819,7 +819,7 @@ TEST_CASE("Check transpose() method, type = double"){
     SECTION("Symmetrical matrix"){
         
         size_t dim = 3;
-        mklmatr::matrix <mytype> M(dim);
+        qgen::matrix <mytype> M(dim);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -846,7 +846,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
         
         size_t dim1 = 5;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -887,7 +887,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 5;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -925,7 +925,7 @@ TEST_CASE("Chacking fread()/fwrite() methods, type = double"){
     SECTION("Symmetrical matrix (3,3)"){
         
         size_t dim = 3;
-        mklmatr::matrix <mytype> M(dim);
+        qgen::matrix <mytype> M(dim);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -967,7 +967,7 @@ TEST_CASE("Checking the invert() method, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -993,7 +993,7 @@ TEST_CASE("Checking the invert() method, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1018,7 +1018,7 @@ TEST_CASE("Checking the invert() method, type = double"){
     SECTION("Symmetrical matrix (3,3)"){
         
         size_t dim = 3;
-        mklmatr::matrix <mytype> M(dim);
+        qgen::matrix <mytype> M(dim);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1051,7 +1051,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1077,8 +1077,8 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
-        mklmatr::matrix <mytype> M2;
+        qgen::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M2;
 
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -1106,7 +1106,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1131,7 +1131,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
     SECTION("Symmetrical matrix (3,3) -> checking inversion"){
         
         size_t dim = 3;
-        mklmatr::matrix <mytype> M(dim);
+        qgen::matrix <mytype> M(dim);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1159,8 +1159,8 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
     SECTION("Symmetrical matrix (3,3) -> checking A*A'"){
         
         size_t dim = 3;
-        mklmatr::matrix <mytype> M(dim);
-        mklmatr::matrix <mytype> res;
+        qgen::matrix <mytype> M(dim);
+        qgen::matrix <mytype> res;
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1193,7 +1193,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1219,7 +1219,7 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M(dim1,dim2);
 
         REQUIRE_FALSE(M.failbit);
 
@@ -1245,8 +1245,8 @@ TEST_CASE("Checking overloaded operator ^, type = double"){
         
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M(dim1,dim2);
-        mklmatr::matrix <mytype> M2;
+        qgen::matrix <mytype> M(dim1,dim2);
+        qgen::matrix <mytype> M2;
 
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -1276,9 +1276,9 @@ TEST_CASE("Checking overloaded operator *, type = double"){
 
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M1(dim1,dim2);
-        mklmatr::matrix <mytype> M2(dim1,dim2);
-        mklmatr::matrix <mytype> res;
+        qgen::matrix <mytype> M1(dim1,dim2);
+        qgen::matrix <mytype> M2(dim1,dim2);
+        qgen::matrix <mytype> res;
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -1339,9 +1339,9 @@ TEST_CASE("(2) Checking overloaded operator *, type = double"){
 
         size_t dim1 = 3;
         size_t dim2 = 3;
-        mklmatr::matrix <mytype> M1(dim1,dim2);
-        mklmatr::matrix <mytype> M2(dim1,dim2);
-        mklmatr::matrix <mytype> res;
+        qgen::matrix <mytype> M1(dim1,dim2);
+        qgen::matrix <mytype> M2(dim1,dim2);
+        qgen::matrix <mytype> res;
 
         REQUIRE_FALSE(M1.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -1396,10 +1396,10 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
 
         size_t dim1 = 3;
         size_t dim2 = 5;
-        mklmatr::matrix <mytype> M1(dim1,dim2);
-        mklmatr::matrix <mytype> M2;
-        mklmatr::matrix <mytype> res;
-        mklmatr::matrix <mytype> M(5,3);
+        qgen::matrix <mytype> M1(dim1,dim2);
+        qgen::matrix <mytype> M2;
+        qgen::matrix <mytype> res;
+        qgen::matrix <mytype> M(5,3);
 
         mytype m[] = {30, 80, 130, 80, 255, 430, 130, 430, 730};
 
@@ -1530,9 +1530,9 @@ TEST_CASE("(3) Checking overloaded operator *, type = double"){
 
 TEST_CASE("Checking overloaded +/- operators, type = double"){
 
-        mklmatr::matrix <mytype> M(3,5);
-        mklmatr::matrix <mytype> M2;
-        mklmatr::matrix <mytype> res;
+        qgen::matrix <mytype> M(3,5);
+        qgen::matrix <mytype> M2;
+        qgen::matrix <mytype> res;
         std::vector <mytype> m(15, 0.0);
 
         REQUIRE_FALSE(M.failbit);
@@ -1576,11 +1576,11 @@ TEST_CASE("Checking overloaded +/- operators, type = double"){
 
 TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
-        mklmatr::matrix <mytype> M(3,5);
-        mklmatr::matrix <mytype> M2;
-        mklmatr::matrix <mytype> res;
+        qgen::matrix <mytype> M(3,5);
+        qgen::matrix <mytype> M2;
+        qgen::matrix <mytype> res;
         std::vector <mytype> m(15, 0.0);
-        mklmatr::matrix <mytype> M3(3,5);
+        qgen::matrix <mytype> M3(3,5);
 
         REQUIRE_FALSE(M.failbit);
         REQUIRE_FALSE(M2.failbit);
@@ -1750,9 +1750,9 @@ TEST_CASE("(2) Checking overloaded +/- operators, type = double"){
 
 TEST_CASE ("Checking dual direction overloaded operator +, type = double"){
     
-    mklmatr::matrix <mytype> M1(3,3);
-    mklmatr::matrix <mytype> M2(3,3);
-    mklmatr::matrix <mytype> res;
+    qgen::matrix <mytype> M1(3,3);
+    qgen::matrix <mytype> M2(3,3);
+    qgen::matrix <mytype> res;
 
     SECTION("Left/right addition"){
 
@@ -1782,9 +1782,9 @@ TEST_CASE ("Checking dual direction overloaded operator +, type = double"){
 
 TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
     
-    mklmatr::matrix <mytype> M1(3,3);
-    mklmatr::matrix <mytype> M2(3,3);
-    mklmatr::matrix <mytype> res;
+    qgen::matrix <mytype> M1(3,3);
+    qgen::matrix <mytype> M2(3,3);
+    qgen::matrix <mytype> res;
 
     SECTION("Positive left/right multiplication"){
 
@@ -1846,12 +1846,12 @@ TEST_CASE ("Checking dual direction overloaded operators * , type = double"){
 }
 
 TEST_CASE("Final integration test, type = double"){
-    mklmatr::matrix <mytype> M;
-    mklmatr::matrix <mytype> res;
-    mklmatr::matrix <mytype> res_tr;
-    mklmatr::matrix <mytype> res2;
-    mklmatr::matrix <mytype> tmp_res;
-    mklmatr::matrix <mytype> tmp_res2;
+    qgen::matrix <mytype> M;
+    qgen::matrix <mytype> res;
+    qgen::matrix <mytype> res_tr;
+    qgen::matrix <mytype> res2;
+    qgen::matrix <mytype> tmp_res;
+    qgen::matrix <mytype> tmp_res2;
 
     SECTION("Rectangular matrix"){
 
@@ -1922,7 +1922,7 @@ TEST_CASE("Final integration test, type = double"){
 
         REQUIRE( M.size() == 10 );
 
-        mklmatr::matrix <mytype> b(4,2);
+        qgen::matrix <mytype> b(4,2);
         mytype m0[] = {1,2,3,4,5,6,7,8,9,10};
         mytype m0_tr[] = {1,2,4,7,2,3,5,8,4,5,6,9,7,8,9,10};
         mytype b0[] = {1,2,3,4,5,6,7,8};

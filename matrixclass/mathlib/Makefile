@@ -3,8 +3,8 @@
 CXX = icc
 
 # define any compile-time flags
-CXXFLAGS = -g -O0 -qopenmp -traceback -check-pointers=rw -debug all -debug parallel -mcmodel=large -I${MKLROOT}/include -std=c++17 -traceback -Wall -qoverride-limits
-# CXXFLAGS = -O3 -qopenmp -mcmodel=large -I${MKLROOT}/include -std=c++17 -traceback -Wall -qoverride-limits
+# CXXFLAGS = -g -O0 -qopenmp -traceback -check-pointers=rw -debug all -debug parallel -mcmodel=large -I${MKLROOT}/include -std=c++17 -traceback -Wall -qoverride-limits
+CXXFLAGS = -O3 -qopenmp -mcmodel=large -I${MKLROOT}/include -std=c++17 -Wall
 
 # define any directories containing header files other than /usr/include
 #CPPFLAGS = -I./include

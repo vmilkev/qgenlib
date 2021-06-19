@@ -18,11 +18,19 @@
 #define MKL_INT size_t
 #include "mkl.h"
 
-#define min(x,y) (((x) < (y)) ? (x) : (y))
-#define max(x,y) (((x) > (y)) ? (x) : (y))
-#define worksize 10000
+#ifndef _min
+    #define _min(x,y) (((x) < (y)) ? (x) : (y))
+#endif
 
-namespace mklmatr
+#ifndef _max
+    #define _max(x,y) (((x) > (y)) ? (x) : (y))
+#endif
+
+#ifndef worksize
+    #define worksize 10000
+#endif
+
+namespace qgen
 {
 
     template <typename T>
@@ -137,8 +145,8 @@ namespace mklmatr
                 
                 Example:
 
-                    mklmatr::matrix <double> obj;    // empty matrix
-                    mklmatr::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
+                    qgen::matrix <double> obj;    // empty matrix
+                    qgen::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
 
                     for (auto i = 0; i < M.size(); i++)
                         M[i] = 1.0;
@@ -158,8 +166,8 @@ namespace mklmatr
                 
                 Example:
 
-                    mklmatr::matrix <double> obj;    // empty matrix
-                    mklmatr::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
+                    qgen::matrix <double> obj;    // empty matrix
+                    qgen::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
 
                     for (auto i = 0; i < M.size(); i++)
                         M[i] = 1.0;
@@ -217,8 +225,8 @@ namespace mklmatr
                 
                 Example:
 
-                    mklmatr::matrix <double> obj;    // empty matrix
-                    mklmatr::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
+                    qgen::matrix <double> obj;    // empty matrix
+                    qgen::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
                     
                     obj = -2.0 + M; // obj become (n,m) matrix where all elements are -2.0; M remains unchanged
             */
@@ -234,8 +242,8 @@ namespace mklmatr
                 
                 Example:
 
-                    mklmatr::matrix <double> obj;    // empty matrix
-                    mklmatr::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
+                    qgen::matrix <double> obj;    // empty matrix
+                    qgen::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
                     
                     obj = M + (-2.0); // obj become (n,m) matrix where all elements are -2.0; M remains unchanged
             */
@@ -288,7 +296,7 @@ namespace mklmatr
 //===============================================================================================================
 
 template <typename T>
-unsigned long long mklmatr::matrix<T>::rdtsc(){
+unsigned long long qgen::matrix<T>::rdtsc(){
     /* Seed for random number generator. */
     
     unsigned int lo,hi;
@@ -300,7 +308,7 @@ unsigned long long mklmatr::matrix<T>::rdtsc(){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::transpose(){
+void qgen::matrix<T>::transpose(){
     /* 
        Handles only rectangular matrices (including full symmetric).
        No transpose of triangular matrix since we do not use 'U' format.
@@ -309,8 +317,8 @@ void mklmatr::matrix<T>::transpose(){
        
        Example:
 
-            mklmatr::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
-            mklmatr::matrix <double> res;    // empty matrix
+            qgen::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
+            qgen::matrix <double> res;    // empty matrix
             
             for (auto i = 0; i < M.size(); i++)
                 M[i] = i;
@@ -354,14 +362,14 @@ void mklmatr::matrix<T>::transpose(){
 //===============================================================================================================
 
 template <typename T>
-T & mklmatr::matrix<T>::operator()(size_t atRow, size_t atCol){
+T & qgen::matrix<T>::operator()(size_t atRow, size_t atCol){
     /*
         Fast access operator (array-like).
 
         Return value: the element at the specified position in the container.
         
         Example:
-                 mklmatr::matrix <double> M(2,2);
+                 qgen::matrix <double> M(2,2);
                  M(1,1) = 0.8;
                  double val = M(1,1);   // val = 0.8.
     */
@@ -373,14 +381,14 @@ T & mklmatr::matrix<T>::operator()(size_t atRow, size_t atCol){
 //===============================================================================================================
 
 template <typename T>
-T mklmatr::matrix<T>::operator()(size_t atRow, size_t atCol) const {
+T qgen::matrix<T>::operator()(size_t atRow, size_t atCol) const {
     /*
         Fast access operator (array-like).
 
         Return value: the element at the specified position in the container.
         
         Example:
-                 mklmatr::matrix <double> M(2,2);
+                 qgen::matrix <double> M(2,2);
                  M(1,1) = 0.8;
                  double val = M(1,1);   // val = 0.8.
     */
@@ -393,7 +401,7 @@ T mklmatr::matrix<T>::operator()(size_t atRow, size_t atCol) const {
 //===============================================================================================================
 
 template <typename T>
-T & mklmatr::matrix<T>::operator[](size_t i){
+T & qgen::matrix<T>::operator[](size_t i){
     /*
         Fast access operator (direct).
 
@@ -401,7 +409,7 @@ T & mklmatr::matrix<T>::operator[](size_t i){
         
         Example:
 
-            mklmatr::matrix <double> M(n,m);
+            qgen::matrix <double> M(n,m);
             double val = M[ M.size()-1 ]; // val = 0.0
             
             for (auto i = 0; i < M.size(); i++)
@@ -417,7 +425,7 @@ T & mklmatr::matrix<T>::operator[](size_t i){
 //===============================================================================================================
 
 template <typename T>
-T mklmatr::matrix<T>::operator[](size_t i) const {
+T qgen::matrix<T>::operator[](size_t i) const {
     /*
         Fast access operator (direct).
 
@@ -425,7 +433,7 @@ T mklmatr::matrix<T>::operator[](size_t i) const {
         
         Example:
 
-            mklmatr::matrix <double> M(n,m);
+            qgen::matrix <double> M(n,m);
             double val = M[ M.size()-1 ]; // val = 0.0
 
             for (auto i = 0; i < M.size(); i++)
@@ -441,7 +449,7 @@ T mklmatr::matrix<T>::operator[](size_t i) const {
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::resize(){
+void qgen::matrix<T>::resize(){
     /*
         Private member. Reallocates memmorey for the container A.
         Note: row and column of a matrix have to be modified before calling the resize() method.
@@ -453,7 +461,7 @@ void mklmatr::matrix<T>::resize(){
     if ( !compact )
         sz = numRow*numCol;
     else{
-        size_t lda = max(numRow, numCol);
+        size_t lda = _max(numRow, numCol);
         sz = (lda*lda + lda)/2;
     }
     
@@ -470,14 +478,14 @@ void mklmatr::matrix<T>::resize(){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::resize(size_t row, size_t col){
+void qgen::matrix<T>::resize(size_t row, size_t col){
     /*
         Reallocates memmorey for the member array A.
         
         Return value: none.
         Example:
         
-            mklmatr::matrix <double> M(3,5);
+            qgen::matrix <double> M(3,5);
             size_t val;
             val = M.size(); // val = 15.
             M.resize(2,4);
@@ -490,7 +498,7 @@ void mklmatr::matrix<T>::resize(size_t row, size_t col){
         sz = row*col;
     }
     else{
-        lda = max(row, col);
+        lda = _max(row, col);
         sz = (lda*lda + lda)/2;
     }
 
@@ -526,14 +534,14 @@ void mklmatr::matrix<T>::resize(size_t row, size_t col){
         numCol = col;
     }
     else{
-        numRow = numCol = max(row, col);
+        numRow = numCol = _max(row, col);
     }
 }
 
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::resize(size_t lda){
+void qgen::matrix<T>::resize(size_t lda){
     /*
         Reallocates memmorey for the member array A.
         Overloaded method for symmetrical matrix in compact form.
@@ -541,7 +549,7 @@ void mklmatr::matrix<T>::resize(size_t lda){
         Return value: none.
         Example:
         
-            mklmatr::matrix <double> M(3);
+            qgen::matrix <double> M(3);
             size_t val;
             val = M.size(); // val = 6.
             M.resize(4);
@@ -577,7 +585,7 @@ void mklmatr::matrix<T>::resize(size_t lda){
 //===============================================================================================================
 
 template <typename T>
-int mklmatr::matrix<T>::allocate (size_t lda) {
+int qgen::matrix<T>::allocate (size_t lda) {
     /*
         Private member.
         Allocates memmory for a symmetric matrix in compact form.
@@ -603,7 +611,7 @@ int mklmatr::matrix<T>::allocate (size_t lda) {
 //===============================================================================================================
 
 template <typename T>
-int mklmatr::matrix<T>::allocate (size_t row, size_t col) {
+int qgen::matrix<T>::allocate (size_t row, size_t col) {
     /*
         Private member.
         Allocates memmory for an arbitrary rectangular matrix.
@@ -628,7 +636,7 @@ int mklmatr::matrix<T>::allocate (size_t row, size_t col) {
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T>::matrix(size_t row, size_t col){
+qgen::matrix<T>::matrix(size_t row, size_t col){
     /* 
        Constructor for regular rectangular matrix
     */
@@ -661,7 +669,7 @@ mklmatr::matrix<T>::matrix(size_t row, size_t col){
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T>::matrix(size_t lda){
+qgen::matrix<T>::matrix(size_t lda){
     /* 
        Constructor for symmetrical matrix in a compact form
     */
@@ -693,7 +701,7 @@ mklmatr::matrix<T>::matrix(size_t lda){
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T>::matrix(){
+qgen::matrix<T>::matrix(){
     /* 
        Default constructor for rectangular matrix;
        no memmory allocation.
@@ -717,7 +725,7 @@ mklmatr::matrix<T>::matrix(){
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T>::matrix(const char *type){
+qgen::matrix<T>::matrix(const char *type){
     /* 
        Constructor: explicite determination of a matrix type;
        no memmory allocation.
@@ -748,7 +756,7 @@ mklmatr::matrix<T>::matrix(const char *type){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::scale(T val){
+void qgen::matrix<T>::scale(T val){
 	/*
         Matrix scaling by scalar.
 
@@ -756,7 +764,7 @@ void mklmatr::matrix<T>::scale(T val){
 
         Example:
 
-            mklmatr::matrix <double> M(3);
+            qgen::matrix <double> M(3);
             double val;
             for(auto i = 0; i < M.size(); i++)
                 M[i] = 2.0;
@@ -788,15 +796,15 @@ void mklmatr::matrix<T>::scale(T val){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::symtorec(){
+void qgen::matrix<T>::symtorec(){
     /*
         Trnsforms symmetric matrix in compact form to regular rectangular matrix (not compact).
 
         Return value: none.
 
         Example:
-                mklmatr::matrix <mytype> M(3); // symmetric matrix in compact form
-                mklmatr::matrix <mytype> res; // empty matrix
+                qgen::matrix <mytype> M(3); // symmetric matrix in compact form
+                qgen::matrix <mytype> res; // empty matrix
                 M.symtorec(); // M now is regular square (symmetric) matrix
                 res = M; // res now is regular square (symmetric) matrix
     */
@@ -837,15 +845,15 @@ void mklmatr::matrix<T>::symtorec(){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::rectosym(){
+void qgen::matrix<T>::rectosym(){
     /*
         Trnsforms regular rectangular (symmetric) matrix into compact form.
 
         Return value: none.
 
         Example:
-                mklmatr::matrix <mytype> M(3); // symmetric matrix in compact form
-                mklmatr::matrix <mytype> res; // empty matrix
+                qgen::matrix <mytype> M(3); // symmetric matrix in compact form
+                qgen::matrix <mytype> res; // empty matrix
                 M.symtorec();
                 res = M; // res now is regular square (symmetric) matrix
                 res.rectosym(); // res now is symmetric matrix in a compact form
@@ -886,14 +894,14 @@ void mklmatr::matrix<T>::rectosym(){
 //===============================================================================================================
 
 template <typename T>
-T & mklmatr::matrix<T>::at(size_t atRow, size_t atCol){
+T & qgen::matrix<T>::at(size_t atRow, size_t atCol){
     /*
         Safe access to the elements of a matrix.
         Indexes atRow and atCol caunted starting from 0.
 
         Return value: the element at the specified position in the container.
         Example:
-                 mklmatr::matrix <double> M; // M is empty matrix.
+                 qgen::matrix <double> M; // M is empty matrix.
                  M.at(10,10) = 0.8;          // M now is (11,11) matrix.
                  double val = M.at(10,10);   // val = 0.8.
     */
@@ -903,8 +911,8 @@ T & mklmatr::matrix<T>::at(size_t atRow, size_t atCol){
     if( !compact ){
 
         if ((atRow+1 > numRow) || (atCol+1 > numCol)){
-            numRow = max(numRow, atRow+1);
-            numCol = max(numCol, atCol+1);
+            numRow = _max(numRow, atRow+1);
+            numCol = _max(numCol, atCol+1);
             if (allocated){
                 resize();
             }
@@ -950,13 +958,13 @@ T & mklmatr::matrix<T>::at(size_t atRow, size_t atCol){
 //===============================================================================================================
 
 template <typename T>
-size_t mklmatr::matrix<T>::size(){
+size_t qgen::matrix<T>::size(){
     /*  
         Returns number of elements allocated for A.
 
         Return value: size_t value, number of elements in a matrix.
         Example:
-            mklmatr::matrix <double> M(3); // symmetric matrix in a compact form.
+            qgen::matrix <double> M(3); // symmetric matrix in a compact form.
             double val = M.size(); // val = 6.
             
     */
@@ -970,16 +978,16 @@ size_t mklmatr::matrix<T>::size(){
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T> mklmatr::matrix<T>::operator+(const matrix<T>& rhs) {
+qgen::matrix<T> qgen::matrix<T>::operator+(const matrix<T>& rhs) {
     /*
         Matrix addition.
         Accepts a general rectangular matrix as well as symmetric matrix in a compact form.
 
         Return value: matrix.
         Example:
-                 mklmatr::matrix <double> M1(2,3);
-                 mklmatr::matrix <double> M2(2,3);
-                 mklmatr::matrix <double> res;
+                 qgen::matrix <double> M1(2,3);
+                 qgen::matrix <double> M2(2,3);
+                 qgen::matrix <double> res;
                  res = M1 + M2;
     */
 
@@ -1033,16 +1041,16 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator+(const matrix<T>& rhs) {
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T> mklmatr::matrix<T>::operator-(const matrix<T>& rhs) {
+qgen::matrix<T> qgen::matrix<T>::operator-(const matrix<T>& rhs) {
     /*
         Matrix substitution.
         Accepts a general rectangular matrix as well as symmetric matrix in a compact form.
 
         Return value: matrix.
         Example:
-                 mklmatr::matrix <double> M1(2,3);
-                 mklmatr::matrix <double> M2(2,3);
-                 mklmatr::matrix <double> res;
+                 qgen::matrix <double> M1(2,3);
+                 qgen::matrix <double> M2(2,3);
+                 qgen::matrix <double> res;
                  res = M1 - M2;
     */
 
@@ -1096,15 +1104,15 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator-(const matrix<T>& rhs) {
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T> mklmatr::matrix<T>::operator-(const T val) {
+qgen::matrix<T> qgen::matrix<T>::operator-(const T val) {
     /* 
         Overloaded '-' operator to substract a scalar from a matrix.
 
         Return value: matrix object.
         Example:
 
-            mklmatr::matrix <double> res;    // empty matrix
-            mklmatr::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
+            qgen::matrix <double> res;    // empty matrix
+            qgen::matrix <double> M(n,m); // M is (n,m) matrix initialized by 0.
             
             res = M - 2.0; // res become (n,m) matrix where all elements are -2.0;
                            // M remains unchanged
@@ -1155,7 +1163,7 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator-(const T val) {
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::gemmt_intrf (double *A, double *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB){
+void qgen::matrix<T>::gemmt_intrf (double *A, double *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB){
     /*
         Interface to cblas_dgemmt routine which computes a matrix-matrix product with general matrices
         but updates only the upper or lower triangular part of the result matrix.
@@ -1168,7 +1176,7 @@ void mklmatr::matrix<T>::gemmt_intrf (double *A, double *B, MKL_INT rowA, MKL_IN
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::gemmt_intrf (float *A, float *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB){
+void qgen::matrix<T>::gemmt_intrf (float *A, float *B, MKL_INT rowA, MKL_INT colA, MKL_INT colB){
     /*
         Interface to cblas_sgemmt routine which computes a matrix-matrix product with general matrices
         but updates only the upper or lower triangular part of the result matrix.
@@ -1180,7 +1188,7 @@ void mklmatr::matrix<T>::gemmt_intrf (float *A, float *B, MKL_INT rowA, MKL_INT 
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T> mklmatr::matrix<T>::operator^(const int val) {
+qgen::matrix<T> qgen::matrix<T>::operator^(const int val) {
 	/*
 	    Overloaded matrix power operator which computes:
 
@@ -1197,8 +1205,8 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator^(const int val) {
         Original matrix A remains unchanged.
 
         Example:
-            mklmatr::matrix <double> M(n,n);
-            mklmatr::matrix <double> res;
+            qgen::matrix <double> M(n,n);
+            qgen::matrix <double> res;
             
             for (auto i = 0; i < M.size(); i++){
                 M[i] = static_cast <double> (i);
@@ -1328,7 +1336,7 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator^(const int val) {
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T> mklmatr::matrix<T>::operator^(const char *val) {
+qgen::matrix<T> qgen::matrix<T>::operator^(const char *val) {
 	/*
 	    Overloaded matrix power operator which computes matrix transpose.
         Original matrix A remains unchanged.
@@ -1336,8 +1344,8 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator^(const char *val) {
         Return value: rectangular matrix.
         
         Example:
-            mklmatr::matrix <double> M(n,m);
-            mklmatr::matrix <double> res;
+            qgen::matrix <double> M(n,m);
+            qgen::matrix <double> res;
                        
             res = M^"T"; // res now is (m,n) matrix while M is (n,m) matrix.
 	*/
@@ -1356,7 +1364,7 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator^(const char *val) {
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T> mklmatr::matrix<T>::operator*(const matrix<T>& rhs) {
+qgen::matrix<T> qgen::matrix<T>::operator*(const matrix<T>& rhs) {
 	/*
 	    Matrix dot product:
 	    C = A * B;
@@ -1364,7 +1372,7 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator*(const matrix<T>& rhs) {
 
         Return value: rectangular matrix.
 	*/
-	mklmatr::matrix <T> C;
+	qgen::matrix <T> C;
 
     /* Check if matrices can be multiplied. */
     if(numCol != rhs.numRow){
@@ -1391,7 +1399,7 @@ mklmatr::matrix<T> mklmatr::matrix<T>::operator*(const matrix<T>& rhs) {
 //===============================================================================================================
 
 template <typename T>
-bool mklmatr::matrix<T>::operator==(const matrix<T>& rhs) {
+bool qgen::matrix<T>::operator==(const matrix<T>& rhs) {
 	/*
 	    Checks matrices complete equality: A == B.
 
@@ -1410,7 +1418,7 @@ bool mklmatr::matrix<T>::operator==(const matrix<T>& rhs) {
 //===============================================================================================================
 
 template <typename T>
-bool mklmatr::matrix<T>::eq(const matrix<T>& rhs) {
+bool qgen::matrix<T>::eq(const matrix<T>& rhs) {
 	/*
 	    Checks matrices shapes equality: A == B.
 
@@ -1430,7 +1438,7 @@ bool mklmatr::matrix<T>::eq(const matrix<T>& rhs) {
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::dotprod (double *A, double *B, double *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB) {
+void qgen::matrix<T>::dotprod (double *A, double *B, double *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB) {
 
 	/*
 	 * Matrix product (rectangular matrices):
@@ -1450,7 +1458,7 @@ void mklmatr::matrix<T>::dotprod (double *A, double *B, double *C, MKL_INT rowA,
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::dotprod (float *A, float *B, float *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB) {
+void qgen::matrix<T>::dotprod (float *A, float *B, float *C, MKL_INT rowA, MKL_INT rowB, MKL_INT colA, MKL_INT colB) {
 
 	/*
 	 * Matrix product (rectangular matrices):
@@ -1470,7 +1478,7 @@ void mklmatr::matrix<T>::dotprod (float *A, float *B, float *C, MKL_INT rowA, MK
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::clear() {
+void qgen::matrix<T>::clear() {
     /*
         Clears a memory allocated for the container A.
 
@@ -1490,7 +1498,7 @@ void mklmatr::matrix<T>::clear() {
 //===============================================================================================================
 
 template <typename T>
-bool mklmatr::matrix<T>::empty() {
+bool qgen::matrix<T>::empty() {
     /*
         Checks if a matrix is empty.
 
@@ -1506,12 +1514,12 @@ bool mklmatr::matrix<T>::empty() {
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T> & mklmatr::matrix<T>::operator=(const matrix<T>& rhs){
+qgen::matrix<T> & qgen::matrix<T>::operator=(const matrix<T>& rhs){
     /*
         Overloaded assignment operator.
     */
         
-    mklmatr::matrix <T> tmpObj (rhs);
+    qgen::matrix <T> tmpObj (rhs);
 
     std::swap(compact, tmpObj.compact);
     std::swap(rectangular, tmpObj.rectangular);
@@ -1531,7 +1539,7 @@ mklmatr::matrix<T> & mklmatr::matrix<T>::operator=(const matrix<T>& rhs){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::fwrite(){
+void qgen::matrix<T>::fwrite(){
     /*
         Moves matrix to a DISK and clears memory allocated for the container A.
 
@@ -1565,7 +1573,7 @@ void mklmatr::matrix<T>::fwrite(){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::fread(){
+void qgen::matrix<T>::fread(){
     /*
         Moves saved on DISK matrix back to the memory.
 
@@ -1608,7 +1616,7 @@ void mklmatr::matrix<T>::fread(){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix <T>::inv_rec (double *A, MKL_INT rowA, MKL_INT colA){
+void qgen::matrix <T>::inv_rec (double *A, MKL_INT rowA, MKL_INT colA){
     /*
         Matrix inversion. Interface to mkl routines.
         Here:
@@ -1658,7 +1666,7 @@ void mklmatr::matrix <T>::inv_rec (double *A, MKL_INT rowA, MKL_INT colA){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix <T>::inv_rec (float *A, MKL_INT rowA, MKL_INT colA){
+void qgen::matrix <T>::inv_rec (float *A, MKL_INT rowA, MKL_INT colA){
     /*
         Matrix inversion. Interface to mkl routines.
         Here:
@@ -1708,7 +1716,7 @@ void mklmatr::matrix <T>::inv_rec (float *A, MKL_INT rowA, MKL_INT colA){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix <T>::inv_sym (double *A, MKL_INT colA){
+void qgen::matrix <T>::inv_sym (double *A, MKL_INT colA){
     /*
         Symetric matrix inversion. Interface to mkl routines.
 
@@ -1737,7 +1745,7 @@ void mklmatr::matrix <T>::inv_sym (double *A, MKL_INT colA){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix <T>::inv_sym (float *A, MKL_INT colA){
+void qgen::matrix <T>::inv_sym (float *A, MKL_INT colA){
     /*
         Symetric matrix inversion. Interface to mkl routines.
 
@@ -1762,7 +1770,7 @@ void mklmatr::matrix <T>::inv_sym (float *A, MKL_INT colA){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix <T>::invert(){
+void qgen::matrix <T>::invert(){
     /*
         Symetric/General matrix inversion.
 
@@ -1770,8 +1778,8 @@ void mklmatr::matrix <T>::invert(){
 
         Example:
 
-            mklmatr::matrix <double> M(n,n);
-            mklmatr::matrix <double> res;    // empty matrix
+            qgen::matrix <double> M(n,n);
+            qgen::matrix <double> res;    // empty matrix
             
             for (auto i = 0; i < M.size(); i++)
                 M[i] = i;
@@ -1811,7 +1819,7 @@ void mklmatr::matrix <T>::invert(){
 //===============================================================================================================
 
 template <typename T>
-size_t mklmatr::matrix<T>::capacity(){
+size_t qgen::matrix<T>::capacity(){
     /*  
         Returns number of allocated elements for A.
     */
@@ -1822,7 +1830,7 @@ size_t mklmatr::matrix<T>::capacity(){
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix <T>::~matrix(){
+qgen::matrix <T>::~matrix(){
     /*
         Class destructor.
     */
@@ -1838,7 +1846,7 @@ mklmatr::matrix <T>::~matrix(){
 //===============================================================================================================
 
 template <typename T>
-mklmatr::matrix<T>::matrix( const matrix<T>& obj){
+qgen::matrix<T>::matrix( const matrix<T>& obj){
     /*
         Copy constructor.
     */
@@ -1860,7 +1868,7 @@ mklmatr::matrix<T>::matrix( const matrix<T>& obj){
 //===============================================================================================================
 
 template <typename T>
-void mklmatr::matrix<T>::print(std::string whiichMatrix) {
+void qgen::matrix<T>::print(std::string whiichMatrix) {
     /*
         Prints part of a matrix into a LOG file.
 
@@ -1876,8 +1884,8 @@ void mklmatr::matrix<T>::print(std::string whiichMatrix) {
     if (rectangular){
         fprintf (dbgFile, "%s", ", Rectangular matrix");
         fprintf (dbgFile, "\n\n");
-        for (auto i=0; i<min(maxRows,numRow); i++) {
-            for (auto j=0; j<min(maxRows,numCol); j++) {
+        for (auto i=0; i<_min(maxRows,numRow); i++) {
+            for (auto j=0; j<_min(maxRows,numCol); j++) {
                 fprintf (dbgFile, "%12.5G", A[i*numCol+j]);
             }
             fprintf (dbgFile, "\n");
@@ -1886,7 +1894,7 @@ void mklmatr::matrix<T>::print(std::string whiichMatrix) {
     else if(symetric){
         fprintf (dbgFile, "%s", ", symetric matrix");
         fprintf (dbgFile, "\n\n");
-        for (auto i=0; i<min(maxRows,numRow); i++) {
+        for (auto i=0; i<_min(maxRows,numRow); i++) {
             for (auto j=0; j<=i; j++) {
                 fprintf (dbgFile, "%12.5G", A[i*(i+1)/2+j]);
             }
