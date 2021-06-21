@@ -1,0 +1,146 @@
+	
+	HMAT version 0.0 21.06.2018
+
+===================================================================================================
+
+1. THE GENERAL DESCRIPTION OF THE PROGRAM
+
+	The program reads pedigree and genomic data and produces H_sub = [G(-1) - A22(-1)] matrix.
+	H_sub matrix is a subset of H(-1) matrix according to the single-step method.
+	The methods implemented in the program: 1) conventional sisngle-step; 2) APY.
+
+
+===================================================================================================
+
+2. INSTALLATION
+
+	2.1. Basic requirements
+
+	a) Read/write permision for the folder from which the program to be lounched.
+	b) The size on hard drive approx. 2*size_of_data.
+
+	2.2. Set-up libraries
+
+	a.1) Copy the folder 'HMAT/intellib' to the desired location. The folder consists of intel redistributable libraries.
+	a.2) Define the environmental variable LD_LIBRARY_PATH.
+	     As an example, type in the terminal: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<your_path_to_lib>/intellib/
+	     Otherwise modify .bashrc file in order to set LD_LIBRARY_PATH permanently.
+
+	[not mandatory steps]:
+
+	b.1) Copy the content of 'HMAT/bin' folder to the desired location.
+	b.2) Modify the environmental variable PATH.
+	     As an example, type in the terminal: export PATH=$PATH:<your_path_to_exec>/
+	     Otherwise modify .bashrc file in order to set PATH permanently.
+
+===================================================================================================
+
+3. RUN THE PROGRAM
+
+
+	<path_to_executable>/hmat.exe (space) <path_to_directive_file>/data_file.HDIR
+
+	Where
+		hmat.exe:       program executable
+		data_file.HDIR: directive file
+
+===================================================================================================
+
+4. DIRECTIVE FILE (*.HDIR)
+	
+	4.1. Keywords
+
+		-----------------------------------------------------------------------------------
+		keyword        description of the following parameter        
+		-----------------------------------------------------------------------------------
+
+		$PEDIGREE    : path to pedigree file.
+
+		$GENID       : path to file with genotyped IDs;
+			       there is two columns; the first - IDs;
+			       the second - integer values either '1' (ID is defined as core);
+			       or '0' (ID is defined as non-core).
+			       If all values in the second column are '1' (or only first column exists)
+			       the program runs conventional single-step method; otherwise - APY method.
+
+		$GMATRIX     : path to file with the inverse of genomic relationship matrix.
+
+		$MARKER      : path to SNP data file;
+
+			       a) file structure (columns):
+
+			       COL no1              COL no2           COL no3
+			       [ID] (space) [chip_ID] (space) [snp_1] (space/no space) [snp_2] (space/no space) ... [snp_n]
+
+			        b) Values in COL no3: 0,1,2 - data;
+			           any other numbers (which are not 0 or 1 or 2) considered as missing data. 
+
+		$ADJUST      : if adjust = 'G-ADJUST' - apply scaling of G(-1) matrix.
+
+		$WEIGHT      : the weight on the pedigree relationship matrix weight = [0,1].
+
+		$INBREEDING  : Integer value - '1' for inbreeding accounted; '0' no inbreeding accounted.
+
+		-----------------------------------------------------------------------------------
+
+	4.2. Usage
+	     
+	     a)
+
+	     (NOTE: the symbol '>'is shown here just to visualise a new line, do not use it in *.hdir file)
+
+	      -----------------------------------------------------------------------------------
+	      >$keyword
+	      (NOTE: no empty line between keyword and parameter)
+	      >parameter
+
+	      >(NOTE: here can be an extra empty line if needed)
+
+	      >$keyword
+	      >parameter
+
+	      (NOTE: and so on)
+	      -----------------------------------------------------------------------------------
+	      
+	      b) In one *.hdir file use either $GMATRIX or $MARKER.
+	      
+	      c) If both keywords are present in the same *.hdir file,
+	         precalculated G matrix will not be used, the program will use SNP markers.
+
+	      d) The order of the keywords does not metter.  
+
+===================================================================================================
+	
+5. OUTPUT FILES
+
+	5.1. In case of succesfull completion:
+
+		a) H_sub.bin.
+
+		   H_sub.bin is the binary file ([G(-1) - A22(-1)] matrix) to be further
+		   used in DMU1 with PGMIX_R option.
+		   It is placed in the same folder where the executable was lounched.
+
+		b) RUNTIME_HMAT.LOG.
+
+		   RUNTIME_HMAT.LOG is the text file containing the runtime information of the program.
+		   The file can be checked continiously during the execution process.
+		   When the program is completed the file includes the execution status of the program
+		   (where '0' means succesfull).
+
+
+	5.2. In case of errors:
+
+		a) LOG_HMAT.log.
+
+		   LOG_HMAT.log is the text file containing the error information generated by the program.
+
+		b) RUNTIME_HMAT.LOG.
+
+		c) The number of .bin files.
+
+		   These files produced during the runtine and, in normal circumstances,
+		   the program delete all of them (in case of succesfull completion).
+
+===================================================================================================
+

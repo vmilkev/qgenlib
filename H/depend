@@ -1,0 +1,6 @@
+structures.o: src/structures.cpp src/structures.hpp
+cs_housekeeper.o: src/cs_housekeeper.cpp src/cs_housekeeper.hpp structures.o
+cs_matrixmath.o: src/cs_matrixmath.cpp src/cs_matrixmath.hpp structures.o
+cs_apy.o: src/cs_apy.cpp src/cs_apy.hpp lib/structures.o lib/cs_housekeeper.o src/cs_matrixmath.hpp
+cs_interface.o: src/cs_interface.cpp src/cs_interface.hpp cs_housekeeper.o structures.o cs_apy.o
+main_hmat.o : src/main_hmat.cpp

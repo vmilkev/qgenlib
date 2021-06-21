@@ -1,0 +1,10 @@
+1. Error codes:
+
+	01: 	Program fail (deep in the program)
+	02: 	Program fail (early stage duringobject initialization)
+	03-04: 	Read/Write opened binary files
+	10: 	Open/Read/Write
+	20: 	Animal IDs are not all in pedigree/G matrix/typed list
+	30: 	Pedigree is not correct: parents born before offspring
+	40: 	Memmory allocation problems
+	50-60:	Openning the binary files in cs_apy 

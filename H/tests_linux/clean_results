@@ -1,0 +1,8 @@
+#!/bin/bash
+clear
+echo "Clean results"
+rm H_sub.bin
+rm inbreeding_coef
+rm LOG_HMAT.log
+rm MATRIX.log
+rm RUNTIME_HMAT.LOG

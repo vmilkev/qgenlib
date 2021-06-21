@@ -1,0 +1,5 @@
+#!/bin/bash
+clear
+echo "Produce apy Hmatr inverse, with SNP genotype (markers data) used to calculate G matrix inside the program"
+../bin/hmat.exe data/apy_data_calc_G.hdir
+echo "Completed! Check the RUNTIME_HMAT.LOG file for details."

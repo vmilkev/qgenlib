@@ -1,0 +1,5 @@
+#!/bin/bash
+clear
+echo "Produce apy Hmatr inverse, with precalculated G matrix"
+../bin/hmat.exe data/apy_data_use_G.hdir
+echo "Completed! Check the RUNTIME_HMAT.LOG file for details."

@@ -1,0 +1,17 @@
+$PEDIGREE
+data/ped.dat
+
+$GENID
+data/typed2
+
+$MARKER
+data/allele.dat
+
+$INBREEDING
+1
+
+$WEIGHT
+0.25
+
+$ADJUST
+G-ADJUST
